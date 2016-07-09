@@ -114,7 +114,7 @@
   </div>
 
   <div class="pusher">
-	  <div class="first">
+	  <div class="first page-segment">
 	  	<div class="ui grid">
 		    <div class="computer tablet only row">
 		      <div class="ui fluid labeled icon menu navbar">
@@ -150,7 +150,7 @@
 		      </div>
 		    </div>
 		    <div class="mobile only row">
-		      <div class="ui fluid navbar menu" style="margin-top: 1rem;">
+		      <div class="ui fluid navbar menu">
 		        <a href="http://www.juncareasy.com/TW/About/About.html" target="_blank" class="item">
 			  		  <img src="images/mit.jpg" alt="image not found" class="logo">
 			  		</a>
@@ -165,8 +165,7 @@
 		          </a>
 		        </div>
 		      </div>
-		      <div class="ui right fixed vertical labeled icon menu navbar" id="mobile_navbar" style="top: 80px;
-		    right: 0px; height: auto">
+		      <div class="ui right fixed vertical labeled icon menu navbar" id="mobile_navbar">
 	    		  <a class="item right menu open">
 	    		    <i class="right arrow icon"></i>
 	    		  </a>
@@ -207,102 +206,100 @@
 	        </div>
 	        <div class="column"></div>
 		    </div>
-  	    <div class="row" style="padding-top: 40px">
-					<div class="ui ten wide column">
-						<div class="ui basic segments">
-						  <div class="ui top left red ribbon label">Step1. <span class="inLabelSpan">選擇車型</span></div>
-						  <br><br>
-						  <div class="ui segment dropdownBox" id="segment0">
-						  	<h3 class="ui header">車型</h3>
-						  	<div class="ui fluid selection dropdown" id="sizeDropdown">
-						  	  <input type="hidden" name="car-size"/>
-						  	  <i class="dropdown icon"></i>
-						  	  <div class="default text">請選擇車型</div>
-						  	  <div class="menu">
-						  	    <div class="item" data-value="貨車">貨車</div>
-						  	    <div class="item" data-value="轎車">轎車</div>
-						  	    <div class="item" data-value="休旅車">休旅車</div>
-						  	    <div class="item" data-value="廂型休旅車">廂型休旅車</div>
-						  	  </div>
-						  	</div>
+				<div class="ui ten wide column ribbon_column">
+					<div class="ui basic segments">
+					  <div class="ui top left red ribbon label">Step1. <span class="inLabelSpan">選擇車型</span></div>
+					  <br><br>
+					  <div class="ui segment dropdownBox" id="segment0">
+					  	<h3 class="ui header">車型</h3>
+					  	<div class="ui fluid selection dropdown" id="sizeDropdown">
+					  	  <input type="hidden" name="car-size"/>
+					  	  <i class="dropdown icon"></i>
+					  	  <div class="default text">請選擇車型</div>
+					  	  <div class="menu">
+					  	    <div class="item" data-value="貨車">貨車</div>
+					  	    <div class="item" data-value="轎車">轎車</div>
+					  	    <div class="item" data-value="休旅車">休旅車</div>
+					  	    <div class="item" data-value="廂型休旅車">廂型休旅車</div>
+					  	  </div>
+					  	</div>
+					  </div>
+					</div>
+					<div class="ui segments" id="stickyCol">
+					  <div class="ui basic segment">
+					    <div class="ui top left red ribbon label">Step2. <span class="inLabelSpan">車身狀況</span></div>
+					    <br><br>
+					    <div class="ui segments">
+					    	<div class="ui segment dropdownBox" id="segment1"></div>
+					    	<div class="ui segment dropdownBox" id="segment2"></div>
+					    	<div class="ui segment dropdownBox" id="segment3"></div>
+					    </div>
+					  </div>
+					  <div class="ui basic segment">
+					    <div class="ui top left red ribbon label">Step3. <span class="inLabelSpan">內裝狀況</span></div>
+					    <br><br>
+					    <div class="ui segment dropdownBox" id="segment4"></div>
+					  </div>
+					  <div class="ui basic segment">
+					    <div class="ui top left red ribbon label">Step4. <span class="inLabelSpan">玻璃狀況</span></div>
+					    <br><br>
+					    <div class="ui segments">
+						    <div class="ui segment dropdownBox" id="segment5"></div>
+						    <div class="ui segment dropdownBox" id="segment6"></div>
 						  </div>
+					  </div>
+					  <div class="ui basic segment">
+					  	<div class="ui large buttons" style="margin: auto">
+						    <button class="ui button" id="clearAll">全部重選</button>
+						    <div class="or"></div>
+						    <button class="ui positive button" id="goAhead">開始診斷</button>
+						  </div>
+					  </div>
+					</div>
+        </div>
+				<div class="ui six wide column">
+					<div class="ui basic segment" id="push" style="height: 142px"></div>
+					<!-- monitor -->
+					<div class="ui sticky segments" id="monitor-only-segments">
+						<div class="ui segment">
+							<div class="ui header">各狀況圖片</div>
 						</div>
-						<div class="ui segments" id="stickyCol">
-						  <div class="ui basic segment">
-						    <div class="ui top left red ribbon label">Step2. <span class="inLabelSpan">車身狀況</span></div>
-						    <br><br>
-						    <div class="ui segments">
-						    	<div class="ui segment dropdownBox" id="segment1"></div>
-						    	<div class="ui segment dropdownBox" id="segment2"></div>
-						    	<div class="ui segment dropdownBox" id="segment3"></div>
-						    </div>
-						  </div>
-						  <div class="ui basic segment">
-						    <div class="ui top left red ribbon label">Step3. <span class="inLabelSpan">內裝狀況</span></div>
-						    <br><br>
-						    <div class="ui segment dropdownBox" id="segment4"></div>
-						  </div>
-						  <div class="ui basic segment">
-						    <div class="ui top left red ribbon label">Step4. <span class="inLabelSpan">玻璃狀況</span></div>
-						    <br><br>
-						    <div class="ui segments">
-							    <div class="ui segment dropdownBox" id="segment5"></div>
-							    <div class="ui segment dropdownBox" id="segment6"></div>
-							  </div>
-						  </div>
-						  <div class="ui basic segment">
-						  	<div class="ui large buttons" style="margin: auto">
-							    <button class="ui button" id="clearAll">全部重選</button>
-							    <div class="or"></div>
-							    <button class="ui positive button" id="goAhead">開始診斷</button>
-							  </div>
-						  </div>
-						</div>
-          </div>
-					<div class="ui six wide column">
-						<div class="ui basic segment" id="push" style="height: 142px"></div>
-						<!-- monitor -->
-						<div class="ui sticky segments" id="monitor-only-segments">
-							<div class="ui segment">
-								<div class="ui header">各狀況圖片</div>
-							</div>
-							<div class="ui segment" style="overflow-y: scroll; max-height: 415px">
-								<div class="ui two cards" id="card-container-monitor">
-									<div class="ui card" id="card-template" style="display: none">
-									  <div class="image">
-									    <img src="images/car/太陽紋2.jpg">
-									  </div>
-									  <div class="content">
-									    <a class="header">太陽紋</a>
-									  </div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- mobile -->
-						<div class="ui segments" id="mobile-only-segments">
-							<div class="ui segment">
-								<div class="ui header">各狀況圖片</div>
-							</div>
-							<div class="ui segment">
-								<div class="ui two cards" id="card-container-mobile">
-									<div class="ui card" id="card-template" style="display: none">
-									  <div class="image">
-									    <img src="images/car/太陽紋2.jpg">
-									  </div>
-									  <div class="content">
-									    <a class="header">太陽紋</a>
-									  </div>
-									</div>
+						<div class="ui segment" style="overflow-y: scroll; max-height: 415px">
+							<div class="ui two cards" id="card-container-monitor">
+								<div class="ui card" id="card-template" style="display: none">
+								  <div class="image">
+								    <img src="images/car/太陽紋2.jpg">
+								  </div>
+								  <div class="content">
+								    <a class="header">太陽紋</a>
+								  </div>
 								</div>
 							</div>
 						</div>
 					</div>
-	      </div>
+					<!-- mobile -->
+					<div class="ui segments" id="mobile-only-segments">
+						<div class="ui segment">
+							<div class="ui header">各狀況圖片</div>
+						</div>
+						<div class="ui segment">
+							<div class="ui two cards" id="card-container-mobile">
+								<div class="ui card" id="card-template" style="display: none">
+								  <div class="image">
+								    <img src="images/car/太陽紋2.jpg">
+								  </div>
+								  <div class="content">
+								    <a class="header">太陽紋</a>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 	  	</div>
 	  </div>
 
-	  <div class="second" style="display: none;">
+	  <div class="second page-segment">
 	    <div class="ui container second-animate" av-animation="bounceInLeft">
 	    	<div class="ui segment">
 	    		<div class="ui top left red ribbon label"><span class="inLabelSpan">健檢結果</span></div>
@@ -339,7 +336,7 @@
 	    </div>
 	  </div>
 
-	  <div class="third" style="display: block">
+	  <div class="third page-segment">
 	  	<div class="ui container">
 	  		<div class="ui segment third-animate" id="report-box" av-animation="bounceInLeft">
 	      	<div class="ui top left red ribbon label"><span class="inLabelSpan">健檢紀錄回存</span></div>
@@ -362,13 +359,13 @@
 						</div>
 
 						<div class="two fields">
-		        	<div class="inline required field" id="tech-field">
-		        		<label>健檢人員</label>
-		        		<input type="text" name="inspector-field">
+		        	<div class="required field" id="tech-field">
+		        		<label>技師姓名</label>
+		        		<input type="text" name="inspector-field" required>
 		        	</div>
-		        	<div class="inline disabled field" id="owner-field">
+		        	<div class="field" id="customer-field">
 		        		<label>車主姓名</label>
-		        		<input type="text" name="host-field" disabled="">
+		        		<input type="text" name="customer-field">
 		        	</div>
 		        </div>
 
@@ -379,73 +376,78 @@
 	            </div>
 	            <div class="required field">
 	              <label>廠別</label><span>(範例: 南港廠)</span>
-	              <input type="text" name="place-field" id="place-field">
+	              <input type="text" name="place-field" id="place-field" required>
 	            </div>
 	          </div>
 
 	          <div class="two fields">
 	            <div class="required field">
 	              <label>車號</label><span>(範例: RT-1234, SG-235, ABC-4321)</span>
-	              <input type="text" name="number-field" id="number-field">
+	              <input type="text" name="number-field" id="number-field" required>
 	            </div>
 	            <div class="required field">
 	              <label>車色</label><span>(範例: 銀色)</span>
-	              <input type="text" name="color-field" id="color-field">
+	              <input type="text" name="color-field" id="color-field" required>
 	            </div>
 	          </div>
 
-	          <div class="two fields">
-	            <div class="field">
-	              <label>車主姓名</label>
-	              <input type="text" name="customer-field" id="customer-field">
-	            </div>
-	            <div class="field">
-	              <label>聯絡電話</label>
-	              <input type="text" name="phone-field" id="phone-field">
-	            </div>
-	          </div>
+            <div class="field">
+              <label>聯絡電話</label>
+              <input type="text" name="phone-field" id="phone-field">
+            </div>
 
 		        <div class="field">
 	            <label>診斷結果</label>
 	            <div class="ui segment" style="background-color: rgba(255, 255, 255, 0); width: 100%">
-	            	<div class="required field">
+	            	<div class="field">
 		            	<label>車身診斷結果</label>
-									<select class="ui fluid dropdown refreshDropdown" name="exterior-field" id="exterior-field"></select>
+									<select class="ui fluid search dropdown refreshDropdown" name="exterior-field" id="exterior-field"></select>
 		            </div>
-		            <div class="required field">
+		            <div class="field">
 		            	<label>內裝診斷結果</label>
-									<select class="ui fluid dropdown refreshDropdown" name="interior-field" id="interior-field"></select>
+									<select class="ui fluid search dropdown refreshDropdown" name="interior-field" id="interior-field"></select>
 		            </div>
-		            <div class="required field">
+		            <div class="field">
 		            	<label>玻璃診斷結果</label>
-									<select class="ui fluid dropdown refreshDropdown" name="glass-field" id="glass-field"></select>
+									<select class="ui fluid search dropdown refreshDropdown" name="glass-field" id="glass-field"></select>
 		            </div>
 		            <p>PS. 各部位診斷之特殊狀況會自動記錄!</p>
 	            </div>
 	          </div>
-	          <div class="ui header">總估價: <span id="priceResult"></span></div>
-	          <div class="ui icon yellow message" id="loadingMsg" style="display: none">
+
+	          <div class="twelve wide field">
+	          	<div class="ui fluid right labeled input">
+	          	  <div class="ui label">總價： $</div>
+	          	  <input type="text" id="priceResult" placeholder="0">
+	          	  <div class="ui basic label">元</div>
+	          	</div>
+	          </div>
+	          
+	          <div class="ui icon yellow message prompt-message" id="loadingMsg">
 						  <i class="notched circle loading icon"></i>
 						  <div class="content">
 						    資料傳送中...
 						  </div>
 						</div>
-						<div class="ui icon green message" id="successMsg" style="display: none">
+						<div class="ui icon green message prompt-message" id="successMsg">
 				  	  <i class="checkmark icon"></i>
 				  	  <div class="content">
 				  	    健檢紀錄已存檔！
 				  	  </div>
 				  	</div>
-				  	<div class="ui icon red message" id="failMsg" style="display: none">
+				  	<div class="ui icon red message prompt-message" id="failMsg">
 							<i class="remove icon"></i>
 							<div class="content">
 								存檔失敗，請至「問題回饋」回報!
 							</div>
 						</div>
-						<div class="ui buttons" style="margin: auto; width: 50%; display: flex;">
-							<div class="ui blue button" id="btn-evaluate">估價</div>
-							<br>
-	          	<div class="ui green button" id="btn-submit">發送</div>
+
+						<div class="twelve wide field">
+							<div class="ui buttons">
+								<div class="ui red button" id="btn-reset">重填</div>
+								<div class="ui blue button" id="btn-evaluate">估價</div>
+		          	<input type="submit" class="ui green button" id="btn-submit" value="發送">
+							</div>
 						</div>
 					</form>
 	      </div>
@@ -470,6 +472,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js"></script>
   <script src="lib/jquery.aniview.min.js"></script>
   <script src="lib/checkBrowser.js"></script>
-  <script src="build/js/carAlgorithm.min.js"></script>
+  <script src="build/js/bundle.js"></script>
 </body>
 </html>

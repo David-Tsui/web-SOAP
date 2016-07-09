@@ -13,8 +13,8 @@ $(document).ready(function() {
 	// navbar
 	$('.right.menu.open').on("click",function(e){
 		e.preventDefault();
-		var navbar_height = $("#mobile_navbar").siblings(".ui.navbar").height();
-		$('.ui.vertical.menu').css("top", navbar_height + 2).toggle();
+		var navbar_height = $(".mobile.only.row > .ui.menu.navbar").height();
+		$('#mobile_navbar').css("top", navbar_height + 4).toggle();
 	});
 	// qrcode
 	$('.myQrcode').on('click', function() { $(this).transition('jiggle'); });
@@ -444,49 +444,69 @@ $(document).ready(function() {
 
 			/************************************************** 第三部分 **************************************************/
 			var fillDropdown = function() {
-				var exterior = $("#exterior-field"), interior = $("#interior-field"),	glass = $("#glass-field");
+				$(".ui.fluid.dropdown.refreshDropdown").parents(".field").addClass("required");
+				var exterior = "exterior-field", interior = "interior-field",	glass = "glass-field";
 				var id_arr = [exterior, interior, glass];
 				var obj_arr = [recommend.exterior, recommend.interior, recommend.glass];
-				obj_arr.forEach(function(obj, index) {
+				var ret_validation_rule = {};
+				obj_arr.forEach(function(obj, i) {
 					var keys = Object.keys(obj);
 					var options = '<option value="">請選擇美容項目</option>';
 					var empty_flag = true;
-					keys.forEach(function(key, index) {
-						if (index < keys.length - 1 && obj[key] != "") {
+					keys.forEach(function(key, j) {
+						if (j < keys.length - 1 && obj[key] != "") {
 							options += '<option value="' + obj[key] + '">' + obj[key] + '</option>';
 							empty_flag = false;		
 						}
 					})
 					if (empty_flag) {
 						options = '<option value="">無項目可選擇，請略過</option>';
-						$(id_arr[index]).dropdown("set text", options);
+						$('#' + id_arr[i]).parents(".field").removeClass("required");
+						$('#' + id_arr[i]).dropdown("set text", options).addClass("disabled");
 					} else {
-						$(id_arr[index]).dropdown("set text", '<option value="">請選擇美容項目</option>');
+						$(id_arr[i]).dropdown("set text", '<option value="">請選擇美容項目</option>');
+						var rule_obj = {
+							identifier: id_arr[i],
+							rules: [
+							  {
+							    type   : 'empty',
+							    inline : true,
+							    prompt : '請選擇或是輸入!'
+							  }
+							]
+						}
+						ret_validation_rule[id_arr[i]] = rule_obj;
 					}
-					id_arr[index].html(options);
-					$(id_arr[index]).dropdown("refresh");
-					$(id_arr[index]).dropdown("restore default text");
+					$('#' + id_arr[i]).html(options);
+					$('#' + id_arr[i]).dropdown("refresh");
+					$('#' + id_arr[i]).dropdown("restore default text");
 				})
-				$(".ui.fluid.dropdown .menu").css('max-height', 13.585714 + "rem");
+				
+				$(".ui.fluid.dropdown.refreshDropdown .menu").css('max-height', 13.585714 + "rem");
+				return ret_validation_rule;
 			};
 
-			var formHandle = function() {
+			var formHandle = function(rules_obj) {
+				/* validation */
+				$("#report-form").form({ fields: rules_obj });
+
 				/* form handle*/
-				var doer = "", checkbox_state = [true, false], enable_field = ['#tech-field', '#owner-field'];
+				var doer = "", checkbox_state = [true, false], enable_field = ['#tech-field', '#customer-field'];
 				$('.ui.radio.checkbox.doer').checkbox({
 					 onChange: function() {
 					 	doer = $(this).siblings('label').text();
 					 	checkbox_state = $('.ui.radio.checkbox.doer').checkbox("is checked");
-					 	console.log("doer: ", doer);
-					 	console.log("state: ", checkbox_state);
 					 	checkbox_state.forEach(function(flag, i) {
-					 		console.log("flag: ", flag);
-					 		if (!flag) {
-					 			$(enable_field[i]).removeClass("required").addClass("disabled");
-								$(enable_field[i]).children('input').attr("disabled", "");
-					 		} else {
-					 			$(enable_field[i]).removeClass("disabled").addClass("required");
-					 			$(enable_field[i]).children('input').removeAttr("disabled");
+					 		if (i == 1 && flag) {
+					 			$(enable_field[i - 1]).removeClass("required");
+					 			$(enable_field[i - 1]).removeAttr("required");
+					 			$(enable_field[i]).addClass("required");
+					 			$(enable_field[i]).children('input').attr("required");
+					 		} else if (i == 0 && flag) {
+					 			$(enable_field[i]).addClass("required");
+					 			$(enable_field[i]).attr("required");
+					 			$(enable_field[i + 1]).removeClass("required");
+					 			$(enable_field[i + 1]).children('input').removeAttr("required");
 					 		}
 					 	});
 			    }
@@ -494,22 +514,29 @@ $(document).ready(function() {
 
 				$("#span-date").html(
 					'(範例:  ' + '<a href="#" id="setDate">' + getCurrentDate() + '</a>' + 
-					'，未施工請略過。)'
+					'，若未施工請略過。)'
 				);
 				$("#btn-evaluate").click(function() {
 					var price_result = calculatePrice(carSize, getFieldValue('exterior-field'), getFieldValue('interior-field'), getFieldValue('glass-field'));
-					$("#priceResult").html(price_result);
+					$("#priceResult").val(price_result);
 				});
-				$("#btn-submit").click(function() {
-					$(this).addClass('disabled');
-					$("#successMsg").hide(function() {$("#loadingMsg").show();});
-					submitForm(recommend);
-					$(this).removeClass('disabled');
-				});
+				
 				$("#setDate").click(function() {
 					setDateField(getCurrentDate());
 					return false;
 				});
+
+				$("#report-form").submit(function(e) {
+					var result = e.target.checkValidity();
+					console.log("form: ", result);
+					return false;
+				});
+				// click(function() {
+				// 	$(this).addClass('disabled');
+				// 	$("#successMsg").hide(function() {$("#loadingMsg").show();});
+				// 	submitForm(recommend);
+				// 	$(this).removeClass('disabled');
+				// });
 
 				function getCurrentDate() {
 					var myDate = new Date();
@@ -566,15 +593,16 @@ $(document).ready(function() {
 						if (add_arr.length > 0) {
 							var temp = "";
 							add_arr.forEach(function(ele, j) {
-								if (j < add_arr.length - 1)
+								if (j < add_arr.length - 1) {
 									temp += ele + ",";
-								else
+								}	else {
 									temp += ele;
+								}
 							})
 							add_arr = temp;
-						}
-						else
+						}	else {
 							add_arr = "無";
+						}
 						additionals[i] = add_arr;
 					})
 					var price_result = calculatePrice(carSize, getFieldValue('exterior-field'), getFieldValue('interior-field'), getFieldValue('glass-field'));
@@ -640,9 +668,9 @@ $(document).ready(function() {
 					$('.aniview').AniView(options);
 				});
 			};
-			$(".ui.dropdown").dropdown();
-			fillDropdown();
-			formHandle();
+			$(".ui.fluid.dropdown.refreshDropdown").dropdown({allowAdditions: true});
+			var ret_rules = fillDropdown();
+			formHandle(ret_rules);
 			$('.ui.sticky').sticky('refresh');
 		});
 	});
