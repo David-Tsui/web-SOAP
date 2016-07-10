@@ -37,10 +37,7 @@ $(document).ready(function() {
 		$.post(api, formData, function(response) {
 			console.log(response);
 			$("#loadingMsg1").fadeOut(function() {
-				$("#successMsg1").fadeIn();	
-				setTimeout(function() {
-					$("#successMsg1").fadeOut();
-				}, 3500);
+				$("#successMsg1").fadeIn().delay(3500).fadeOut();
 			});
 		}).fail(function(xhr, textStatus, errorThrown) {
 			console.log(xhr.responseText);
@@ -134,7 +131,7 @@ $(document).ready(function() {
 
 		var highLight = function(e) {
 			var caller = e.target;
-			var parentBox = $(caller).parents(".dropdownBox");
+			var parentBox = $(caller).parents(".dropDownBox");
 			parentBox.addClass("active");
 			parentBox.mouseleave(function() {
 				$(this).removeClass("active");
@@ -146,6 +143,7 @@ $(document).ready(function() {
 		$(".ui.multiple.dropdown .item").click(function(e) {
 			var caller_item = $(e.target).attr("data-value");
 			addCard(caller_item, carImageObj);
+			// after the choices show up
 			setTimeout(function() {
 				$('.ui.label.transition.visible').off('click');
 				$('.ui.label.transition.visible').on('click', function(e) {
@@ -189,7 +187,9 @@ $(document).ready(function() {
 		$('.ui.fluid.multiple.dropdown').dropdown('clear');
 		$('.second, .third').hide();
 		scrollToDropdown();
+		$("#card-container-monitor, #card-container-mobile").html('<p>目前沒有任何狀況，趕快進行健檢吧！</p>');
 		$('.ui.sticky').sticky('refresh');
+
 	});
 	$("#goAhead").on('click', function() {
 		var exterior = [[],[]], interior = [], coating = "", attach = "", broken = "";
@@ -417,20 +417,20 @@ $(document).ready(function() {
 				data.forEach(function(item) {
 					var key = Object.keys(item);
 					var temp_arr = item[key[0]];
-					var myTable = '<table class="ui unstackable three column celled striped table"><thead>';
-					myTable += '<tr><th>美容項目</th><th>建議回廠月份</th><th><span class="span-carSize"></span>價格</th></tr></thead><tbody>';
+					var insertTable = '<table class="ui unstackable three column celled striped table"><thead>';
+					insertTable += '<tr><th>美容項目</th><th>建議回廠月份</th><th><span class="span-carSize"></span>價格</th></tr></thead><tbody>';
 					temp_arr.forEach(function(element) {
-						myTable += "<tr>";
-						myTable += "<td>" + element.name + "</td>";
-						myTable += "<td>" + element.period + "</td>";
+						insertTable += "<tr>";
+						insertTable += "<td>" + element.name + "</td>";
+						insertTable += "<td>" + element.period + "</td>";
 						if (element.price[carSize] != 0)
-							myTable += "<td>" + element.price[carSize] + "</td>";
+							insertTable += "<td>" + element.price[carSize] + "</td>";
 						else 
-							myTable += "<td> - </td>";
-						myTable += "</tr>";
+							insertTable += "<td> - </td>";
+						insertTable += "</tr>";
 					})			
-					myTable += '</tbody></table>';
-					$("#" + key[0] + "-tab").html(myTable);
+					insertTable += '</tbody></table>';
+					$("#" + key[0] + "-tab").html(insertTable);
 				})
 				$("#period-tab .item").tab();
 				var arr = [];
@@ -488,7 +488,10 @@ $(document).ready(function() {
 
 			var formHandle = function(rules_obj) {
 				/* validation */
-				$("#report-form").form({ fields: rules_obj });
+				$("#report-form").form({ 
+					fields: rules_obj,
+					onSuccess: submitForm
+				});
 
 				/* form handle*/
 				var doer = "", checkbox_state = [true, false], enable_field = ['#tech-field', '#customer-field'];
@@ -499,7 +502,7 @@ $(document).ready(function() {
 					 	checkbox_state.forEach(function(flag, i) {
 					 		if (i == 1 && flag) {
 					 			$(enable_field[i - 1]).removeClass("required");
-					 			$(enable_field[i - 1]).removeAttr("required");
+					 			$(enable_field[i - 1]).children('input').removeAttr("required");
 					 			$(enable_field[i]).addClass("required");
 					 			$(enable_field[i]).children('input').attr("required");
 					 		} else if (i == 0 && flag) {
@@ -526,17 +529,10 @@ $(document).ready(function() {
 					return false;
 				});
 
+				
 				$("#report-form").submit(function(e) {
-					var result = e.target.checkValidity();
-					console.log("form: ", result);
 					return false;
 				});
-				// click(function() {
-				// 	$(this).addClass('disabled');
-				// 	$("#successMsg").hide(function() {$("#loadingMsg").show();});
-				// 	submitForm(recommend);
-				// 	$(this).removeClass('disabled');
-				// });
 
 				function getCurrentDate() {
 					var myDate = new Date();
@@ -586,9 +582,12 @@ $(document).ready(function() {
 				}
 
 				function submitForm() {
+					$("#btn-submit").addClass('disabled');
+					$("#successMsg").hide(function() {$("#loadingMsg").show();});
 					var additionals = [];
-					for(var key in recommend)
+					for(var key in recommend) {
 						additionals.push(recommend[key].additional);
+					}
 					additionals.forEach(function(add_arr, i) {
 						if (add_arr.length > 0) {
 							var temp = "";
@@ -609,9 +608,9 @@ $(document).ready(function() {
 					$("#priceResult").html(price_result);
 					var formData = {
 						日期: "",
-						健檢人員: getFieldValue('name-field'),
-						技師姓名: getFieldValue('name-field'),
-						車主姓名: getFieldValue('name-field'),
+						健檢人員: getFieldValue('doer-field'),
+						技師姓名: getFieldValue('inspector-field'),
+						車主姓名: getFieldValue('customer-field'),
 						確定施工日: getFieldValue('date-field'),
 						廠別: getFieldValue('place-field'),
 						車號: getFieldValue('number-field'),
@@ -635,17 +634,11 @@ $(document).ready(function() {
 						$("#loadingMsg").fadeOut(function() {
 							$("#successMsg").fadeIn(function() {
 								$("#btn-submit").removeClass('disabled');
-							});	
-							setTimeout(function() {
-								$("#successMsg").fadeOut();
-							}, 3500);
+							}).delay(3500).fadeOut();
 						});
 					}).fail(function(xhr, textStatus, errorThrown) {
 						$("#loadingMsg").fadeOut(function() {
-							$("#failMsg").fadeIn();	
-							setTimeout(function() {
-								$("#failMsg").fadeOut();
-							}, 3500);
+							$("#failMsg").fadeIn().delay(3500).fadeOut();
 						});
 					});
 					formData["經銷商"] = "匯豐";

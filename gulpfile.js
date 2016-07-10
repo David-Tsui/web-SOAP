@@ -29,7 +29,7 @@ gulp.task('styles', function(callback) {
     .pipe(gulpSass())   
     .pipe(gulp.dest('./src/css'))
     .pipe(gulpSize())
-    .pipe(gulpNotify("styles completed"))
+    .pipe(gulpNotify("scss to css completed"))
   callback();
 });
 
@@ -45,7 +45,7 @@ gulp.task('concat', function(callback) {
     .pipe(gulpRev.manifest())
     .pipe(gulp.dest('./build/css/'))
     .pipe(gulpSize())
-    .pipe(gulpNotify("concat completed"))
+    .pipe(gulpNotify("concat css completed"))
     .pipe(gulpLivereload());
   callback();
 });
@@ -55,7 +55,7 @@ gulp.task('scripts', function(callback) {
     .pipe(gulpPlumber()) 
     .pipe(gulpSourceMaps.init())     
     .pipe(gulpUglify())
-    .pipe(gulpConcat({path: 'bundle.js', cwd: ''}))
+    .pipe(gulpConcat({path: 'bundle.min.js', cwd: ''}))
     .pipe(gulp.dest('./build/js'))
     .pipe(gulpRev())           
     .pipe(gulpSourceMaps.write("./"))  
@@ -63,7 +63,7 @@ gulp.task('scripts', function(callback) {
     .pipe(gulpRev.manifest())
     .pipe(gulp.dest('./build/js'))
     .pipe(gulpSize())
-    .pipe(gulpNotify("scripts completed"))
+    .pipe(gulpNotify("minify js completed"))
     .pipe(gulpLivereload());
   callback();
 });
@@ -72,12 +72,14 @@ gulp.task('images', function(callback) {
   gulp.src(paths.images)
     // Pass in options to the task
     .pipe(gulpImageMin({optimizationLevel: 5}))
-    .pipe(gulp.dest('build/img'));
+    .pipe(gulp.dest('build/img'))
+    .pipe(gulpNotify("minify images completed"))
+    .pipe(gulpLivereload());
 });
 
 gulp.task('html-replace', function(callback) {
   var opts = {comments: false, spare: false, quotes: true};
-  gulp.src('./src/html/index.html')
+  gulp.src('./src/html/*.html')
     .pipe(gulpPlumber())
     .pipe(gulpHtmlReplace())
     .pipe(gulpMinifyHTML(opts))
@@ -107,7 +109,20 @@ gulp.task('minify-css', gulp.series('concat', function(callback) {
 
 gulp.task('clean', function(callback) {
   // You can use multiple globbing patterns as you would with `gulp.src`
-  return del(['./build'], callback);
+  del(['./build']);
+  callback();
+});
+
+gulp.task('clean-js', function(callback) {
+  // You can use multiple globbing patterns as you would with `gulp.src`
+  del(['./build/js']);
+  callback();
+});
+
+gulp.task('clean-css', function(callback) {
+  // You can use multiple globbing patterns as you would with `gulp.src`
+  del(['./build/css']);
+  callback();
 });
 
 gulp.task('server', function(callback) {
@@ -119,8 +134,8 @@ gulp.task('server', function(callback) {
 gulp.task('watch', gulp.parallel('server', function(callback) {
   gulpLivereload.listen();
   gulp.watch('./src/scss/*.scss', gulp.series('styles'));
-  gulp.watch('./src/css/*.css', gulp.series('concat'));
-  gulp.watch('./src/js/*.js', gulp.series('scripts'));
+  gulp.watch('./src/css/*.css', gulp.series('clean-css', 'concat'));
+  gulp.watch('./src/js/*.js', gulp.series('clean-js', 'scripts'));
   gulp.watch('./src/html/*.html', gulp.series('html-replace'));
 }));
 
