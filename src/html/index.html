@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <link href="images/ico/kicker.png" rel="shortcut icon">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css">
   <link rel="stylesheet" href="build/css/bundle.css">
 </head>
 <body>
@@ -277,12 +277,16 @@
 					</div>
 					<!-- mobile -->
 					<div class="ui segments" id="mobile-only-segments">
-						<div class="ui segment">
-							<div class="ui header">各狀況圖片</div>
-						</div>
-						<div class="ui segment">
-							<div class="ui two cards" id="card-container-mobile"></div>
-						</div>
+						<div class="ui segment scroll-segment-box">
+							<div class="ui top attached label material-red">
+								各狀況圖片
+							</div>
+							<div class="ui material segment scroll-segment">
+								<!-- <p>目前沒有任何狀況，趕快進行健檢吧！</p> -->
+								<div class="ui two cards" id="card-container-monitor"></div>
+							</div>	
+						</div>			
+					</div>
 					</div>
 				</div>
 	  	</div>
@@ -290,7 +294,7 @@
 
 	  <div class="second page-segment">
 	    <div class="ui container second-animate" av-animation="bounceInLeft">
-	    	<div class="ui segment">
+	    	<div class="ui material segment">
 	    		<div class="ui material-indigo top attached label"><span class="span-in-label">健檢結果</span></div>
     		  <table class="ui unstackable five column table" id="soap-table">
     		    <thead>
@@ -307,115 +311,119 @@
 	    	</div>
 	    	<br>
 	    	<br>
-	      <div class="ui segment">
+	      <div class="ui material segment">
 	      	<div class="ui material-indigo top attached label"><span class="span-in-label">施工保養週期及價格表</span></div>
-	      	<div class="ui top attached tabular menu" id="period-tab">
-	      	  <a class="active item" data-tab="exterior">車身</a>
-	      	  <a class="item" data-tab="interior">內裝</a>
-	      	  <a class="item" data-tab="glass">玻璃</a>
-	      	</div>
-	      	<div class="ui bottom attached active tab segment" data-tab="exterior" id="exterior-tab"></div>
-	      	<div class="ui bottom attached tab segment" data-tab="interior" id="interior-tab"></div>
-	      	<div class="ui bottom attached tab segment" data-tab="glass" id="glass-tab"></div>
+	      	<div class="ui basic segment">
+	      		<div class="ui top attached tabular menu" id="period-tab">
+	      		  <a class="active item" data-tab="exterior">車身</a>
+	      		  <a class="item" data-tab="interior">內裝</a>
+	      		  <a class="item" data-tab="glass">玻璃</a>
+	      		</div>
+	      		<div class="ui bottom attached active tab segment" data-tab="exterior" id="exterior-tab"></div>
+	      		<div class="ui bottom attached tab segment" data-tab="interior" id="interior-tab"></div>
+	      		<div class="ui bottom attached tab segment" data-tab="glass" id="glass-tab"></div>
+	      	</div>	
 	    	</div>
 	    </div>
 	  </div>
 
 	  <div class="third page-segment">
 	  	<div class="ui container">
-	  		<div class="ui segment third-animate" id="report-box" av-animation="bounceInLeft">
-	      	<div class="ui material-indigo top attached label"><span class="span-in-label">健檢紀錄回存</span></div>
+	  		<div class="ui material segment third-animate" id="report-box" av-animation="bounceInLeft">
+	      	<div class="ui material-indigo top attached label"><span class="span-in-label">健檢紀錄回存（*為必填）</span></div>
 	      	<br><br>
-	        <form class="ui form" id="report-form" action="" onsubmit="return false;">
+	        <form class="ui form" id="report-form" onsubmit="return false;">
+	        	<h3 class="ui dividing header">施工資訊</h3>
 						<div class="inline fields">
 					    <label>健檢人員</label>
 					    <div class="field">
 					      <div class="ui radio checkbox doer">
-					        <input type="radio" name="doer-field" checked="" tabindex="0" class="hidden">
+					        <input type="radio" name="doer-field" checked="" tabindex="0" class="hidden" value="技師">
 					        <label>技師</label>
 					      </div>
 					    </div>
 					    <div class="field">
 					      <div class="ui radio checkbox doer">
-					        <input type="radio" name="doer-field" tabindex="0" class="hidden">
+					        <input type="radio" name="doer-field" tabindex="1" class="hidden" value="車主">
 					        <label>車主</label>
 					      </div>
 					    </div>
 						</div>
-
-						<div class="two fields">
-		        	<div class="required field" id="tech-field">
-		        		<label>技師姓名</label>
-		        		<input type="text" name="inspector-field" required>
-		        	</div>
-		        	<div class="field" id="customer-field">
-		        		<label>車主姓名</label>
-		        		<input type="text" name="customer-field">
-		        	</div>
-		        </div>
-
-	          <div class="two fields">
-	            <div class="field">
-	              <label>施工日期</label><span id="span-date"></span>
-	              <input type="text" name="date-field" id="date-field">
-	            </div>
-	            <div class="required field">
-	              <label>廠別</label><span>(範例: 南港廠)</span>
-	              <input type="text" name="place-field" id="place-field" required>
-	            </div>
-	          </div>
-
-	          <div class="two fields">
-	            <div class="required field">
-	              <label>車號</label><span>(範例: RT-1234, SG-235, ABC-4321)</span>
-	              <input type="text" name="number-field" id="number-field" required>
-	            </div>
-	            <div class="required field">
-	              <label>車色</label><span>(範例: 銀色)</span>
-	              <input type="text" name="color-field" id="color-field" required>
-	            </div>
-	          </div>
-
+	        	<div class="required field" id="tech-field">
+	        		<label>技師姓名</label>
+	        		<input type="text" name="tech-field" required>
+	        	</div>
+						<div class="inline fields">
+					    <label>施工與否</label>
+					    <div class="field">
+					      <div class="ui radio checkbox executed">
+					        <input type="radio" name="executed-field" checked="" tabindex="2" class="hidden" value="是">
+					        <label>是</label>
+					      </div>
+					    </div>
+					    <div class="field">
+					      <div class="ui radio checkbox executed">
+					        <input type="radio" name="executed-field" tabindex="3" class="hidden" value="否">
+					        <label>否</label>
+					      </div>
+					    </div>
+						</div>
+            <div class="required field" id="date-field">
+              <label>施工日期</label><span id="span-date"></span>
+              <input type="text" name="date-field" required>
+            </div>
+            <div class="required field">
+              <label>廠別</label><span>(範例: 南港廠)</span>
+              <input type="text" name="place-field" id="place-field" required>
+            </div>
+						
+						<h3 class="ui dividing header">客戶資訊</h3>
+						<div class="required field" id="customer-field">
+	        		<label>客戶姓名</label>
+	        		<input type="text" name="customer-field" required>
+	        	</div>
+            <div class="required field">
+              <label>車號</label><span>(範例: RT-1234, SG-235, ABC-4321)</span>
+              <input type="text" name="number-field" id="number-field" required>
+            </div>
+            <div class="required field">
+              <label>車色</label><span>(範例: 銀色)</span>
+              <input type="text" name="color-field" id="color-field" required>
+            </div>
             <div class="field">
               <label>聯絡電話</label>
               <input type="text" name="phone-field" id="phone-field">
             </div>
 
-		        <div class="field">
-	            <label>診斷結果</label>
-	            <div class="ui segment" style="background-color: rgba(255, 255, 255, 0); width: 100%">
-		            <div class="ui segment">
-		            	<div class="ui material-indigo top attached label">小提示</div>
-		            	<p>1. 各部位診斷之<a href="#calculate-content">特殊狀況</a>會自動記錄!</p>
-		            	<p>2. 若實作項目未在選單中，可於選單該欄直接填打。若為特別項目，則填至備註欄中</p>
-		            </div>
-		            <br>
-	            	<div class="field">
-		            	<label>車身建議美容項目</label>
-									<select class="ui fluid search dropdown refreshDropdown" name="exterior-field" id="exterior-field"></select>
-		            </div>
-		            <div class="field">
-		            	<label>內裝建議美容項目</label>
-									<select class="ui fluid search dropdown refreshDropdown" name="interior-field" id="interior-field"></select>
-		            </div>
-		            <div class="field">
-		            	<label>玻璃建議美容項目</label>
-									<select class="ui fluid search dropdown refreshDropdown" name="glass-field" id="glass-field"></select>
-		            </div>
-		            <div class="field">
-		            	<label>備註</label>
-		            	<textarea name="ps-field" cols="30" rows="3"></textarea>
-		            </div>
+		        <h3 class="ui dividing header">診斷結果</h3>
+            <div class="ui fluid basic material segment">
+	            <div class="ui small material-pink top attached label">小提示</div>
+            	<p>1. 各部位診斷之<a href="#soap-table">特殊狀況</a>會自動記錄!</p>
+            	<p>2. 若實作項目未在選單中，可於選單該文字欄直接填打。若為特別項目，則填至備註欄中</p>
+	            <br>
+            	<div class="field">
+	            	<label>車身建議美容項目</label>
+								<select class="ui fluid search dropdown refreshDropdown" name="exterior-field" id="exterior-field"></select>
 	            </div>
-	          </div>
+	            <div class="field">
+	            	<label>內裝建議美容項目</label>
+								<select class="ui fluid search dropdown refreshDropdown" name="interior-field" id="interior-field"></select>
+	            </div>
+	            <div class="field">
+	            	<label>玻璃建議美容項目</label>
+								<select class="ui fluid search dropdown refreshDropdown" name="glass-field" id="glass-field"></select>
+	            </div>
+	            <div class="field">
+	            	<label>備註</label>
+	            	<textarea name="ps-field" cols="30" rows="3"></textarea>
+	            </div>
+            </div>
 
-	          <div class="twelve wide field">
-	          	<div class="ui fluid right labeled input">
-	          	  <div class="ui label">總價： $</div>
-	          	  <input type="text" id="priceResult" placeholder="0">
-	          	  <div class="ui basic label">元</div>
-	          	</div>
-	          </div>
+          	<div class="ui fluid right labeled input">
+          	  <div class="ui label">總價： $</div>
+          	  <input type="text" id="priceResult" placeholder="0">
+          	  <div class="ui basic label">元</div>
+          	</div>
 	          
 	          <div class="ui icon yellow message prompt-message" id="loadingMsg">
 						  <i class="notched circle loading icon"></i>
@@ -436,11 +444,11 @@
 							</div>
 						</div>
 
-						<div class="twelve wide field">
+						<div class="ui basic segment action-segment">
 							<div class="ui fluid buttons">
-								<div class="ui red button" id="btn-reset">重填</div>
-								<div class="ui blue button" id="btn-evaluate">估價</div>
-		          	<input type="submit" class="ui green button" id="btn-submit" value="發送">
+								<div class="ui small-font material material-initial button disabled" id="btn-reset">重填</div>
+								<div class="ui small-font material material-red button" id="btn-evaluate">估價</div>
+		          	<input type="submit" class="ui small-font material material-green button" id="btn-submit" value="發送">
 							</div>
 						</div>
 					</form>
@@ -461,9 +469,8 @@
     </div>
   </div>
   
-  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js"></script>
   <script src="build/js/bundle.min.js"></script>
 </body>
 </html>

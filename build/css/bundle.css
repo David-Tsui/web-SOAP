@@ -13,6 +13,11 @@ body {
 
 .ui.dropdown {
   border-radius: 0 !important; }
+  .ui.dropdown > .label {
+    border-radius: 0; }
+  .ui.dropdown.multiple > .label {
+    padding-top: .6rem;
+    padding-bottom: .6rem; }
 
 .ui.segment.material {
   border-radius: 0;
@@ -44,6 +49,8 @@ body {
   font-size: 1.2rem !important;
   font-weight: 400;
   text-shadow: none; }
+  .ui.button.material.small-font {
+    font-size: 1rem !important; }
 
 .ui.button.material-initial {
   background: #dadada;
@@ -52,8 +59,20 @@ body {
 .ui.button.material-indigo {
   background: #3f51b5; }
 
+.ui.button.material-red {
+  background: #e91e63; }
+
 .ui.button.material-pink {
   background: #ff4081; }
+
+.ui.button.material-cyan {
+  background: #00bcd4; }
+
+.ui.button.material-lightgreen {
+  background: #8bc34a; }
+
+.ui.button.material-green {
+  background: #4caf50; }
 
 .ui.top.attached.label {
   font-size: 1.35rem;
@@ -62,35 +81,43 @@ body {
   border-radius: 0;
   border: none;
   color: #fff; }
+  .ui.top.attached.label.small {
+    font-size: 1.15rem;
+    line-height: 1.15rem; }
   .ui.top.attached.label:first-child + :not(.attached) {
     margin-top: 3rem !important; }
+  .ui.top.attached.label ~ .ui.segment, .ui.top.attached.label ~ .ui.segments {
+    margin-top: 1.5rem; }
+  .ui.top.attached.label .span-in-label {
+    color: #fff;
+    font-family: initial; }
+  .ui.top.attached.label.material-initial {
+    background: #dadada;
+    color: #444; }
   .ui.top.attached.label.material-red {
     background: #e91e63; }
   .ui.top.attached.label.material-indigo {
     background: #3f51b5; }
   .ui.top.attached.label.material-pink {
     background: #ff4081; }
-  .ui.top.attached.label ~ .ui.segment, .ui.top.attached.label ~ .ui.segments {
-    margin-top: 1.5rem; }
-  .ui.top.attached.label .span-in-label {
-    color: #fff;
-    font-family: initial; }
+  .ui.top.attached.label.material-cyan {
+    background: #00bcd4; }
+  .ui.top.attached.label.material-lightgreen {
+    background: #8bc34a; }
+  .ui.top.attached.label.material-green {
+    background: #4caf50; }
 
 .ui.form {
   margin-top: 1.314rem; }
-  .ui.form .inline.field > label, .ui.form .inline.fields > label {
-    font-size: 16px; }
   .ui.form .field ~ .wide {
     margin: 1rem auto 0; }
-  .ui.form .field > label {
-    font-size: 16px; }
 
 .ui.basic.segment.dropDownBox {
   border: 1px solid #eee; }
   .ui.basic.segment.dropDownBox:first-child {
     margin-top: 1.5rem; }
   .ui.basic.segment.dropDownBox.active {
-    transition: all .25s ease-out;
+    transition: all .34s ease-out;
     -webkit-box-shadow: 0 4px 8px -1px #8f8f8f !important;
     box-shadow: 0 4px 8px -1px #8f8f8f !important; }
 
@@ -138,18 +165,17 @@ body {
     display: none;
     padding-top: 40px;
     padding-bottom: 25px; }
-    .page-segment:not(.first) .ui.segment {
+    .page-segment:not(.first) .ui.segment:not(.basic):not(.tab) {
       margin: auto;
       width: 60%; }
   .page-segment.first {
-    background-image: url(/images/bg8.png); }
+    background-image: url(../../images/bg8.png); }
     .page-segment.first > .ui.container {
-      padding-top: 40px;
       padding-bottom: 20px; }
   .page-segment.second {
-    background-image: url(/images/bg2.jpg); }
+    background-image: url(../../images/bg2.jpg); }
   .page-segment.third {
-    background-image: url(/images/bg5.jpg); }
+    background-image: url(../../images/bg5.jpg); }
 
 #report-box {
   /*-webkit-transition: box-shadow 0.4s ease-in, background 0.3s ease-in;
@@ -201,20 +227,15 @@ body {
   -webkit-animation-delay: 3s; }
 
 @media only screen and (max-width: 768px) {
-  .page-segment:not(.first) .ui.segment {
+  .page-segment:not(.first) .ui.segment:not(.basic):not(.tab) {
     margin: auto;
     width: 90%; }
-  .first > .ui.container {
-    padding-top: 40px;
+  .page-segment.first .ui.container {
     padding-bottom: 20px; }
-  .second .ui.segment, .third .ui.segment {
-    width: 90%; }
   .condition-images img {
     width: 350px; }
   .ui.vertical.menu.navbar {
     margin-top: 0px !important; }
-  #push {
-    display: none; }
   #mobile-only-segments {
     display: block; }
   #monitor-only-segments {

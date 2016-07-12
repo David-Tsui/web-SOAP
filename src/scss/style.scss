@@ -5,6 +5,13 @@ body {
 
 .ui.dropdown {
   border-radius: 0 !important;
+  & > .label {
+    border-radius: 0;
+  }
+  &.multiple > .label {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+  }
 }
 
 .ui.segment {
@@ -47,6 +54,9 @@ body {
     font-size: 1.2rem !important;
     font-weight: 400;
     text-shadow: none;
+    &.small-font {
+      font-size: 1rem !important;
+    }
   }
   &.material-initial {
     background: rgb(218, 218, 218);
@@ -55,8 +65,20 @@ body {
   &.material-indigo {
     background: rgb(63,81,181);
   }
+  &.material-red {
+    background: rgb(233,30,99);
+  }
   &.material-pink {
     background: rgb(255,64,129);
+  }
+  &.material-cyan {
+    background: rgb(0,188,212);
+  }
+  &.material-lightgreen {
+    background: rgb(139,195,74);
+  }
+  &.material-green {
+    background: rgb(76,175,80);
   }
 }
 
@@ -68,8 +90,24 @@ body {
   border-radius: 0;
   border: none;
   color: #fff;
+  &.small {
+    font-size: 1.15rem;
+    line-height: 1.15rem;
+  }
   &:first-child+:not(.attached) {
     margin-top: 3rem !important;
+  }
+  & ~ .ui.segment, & ~ .ui.segments {
+    margin-top: 1.5rem;
+  }
+  & .span-in-label {
+    color: #fff;
+    font-family: initial;
+  }
+
+  &.material-initial {
+    background: rgb(218, 218, 218);
+    color: #444;
   }
   &.material-red {
     background: rgb(233,30,99);
@@ -80,12 +118,14 @@ body {
   &.material-pink {
     background: rgb(255,64,129);
   }
-  & ~ .ui.segment, & ~ .ui.segments {
-    margin-top: 1.5rem;
+  &.material-cyan {
+    background: rgb(0,188,212);
   }
-  & .span-in-label {
-    color: #fff;
-    font-family: initial;
+  &.material-lightgreen {
+    background: rgb(139,195,74);
+  }
+  &.material-green {
+    background: rgb(76,175,80);
   }
 }
 
@@ -94,7 +134,7 @@ body {
   & .inline {
     &.field, &.fields {
       & > label {
-        font-size: 16px;
+        // font-size: 16px;
       }
     }
   }
@@ -104,7 +144,7 @@ body {
     }
 
     & > label {
-      font-size: 16px;
+      // font-size: 16px;
     }
   }
 }
@@ -115,7 +155,7 @@ body {
     margin-top: 1.5rem;
   }
   &.active {
-    transition: all .25s ease-out;
+    transition: all .34s ease-out;
     -webkit-box-shadow: 0 4px 8px -1px #8f8f8f !important;
     box-shadow: 0 4px 8px -1px #8f8f8f !important;
   }
@@ -173,7 +213,7 @@ body {
     display: none;
     padding-top: 40px;
     padding-bottom: 25px;
-    & .ui.segment {
+    & .ui.segment:not(.basic):not(.tab) {
       margin: auto;
       width: 60%;
     }
@@ -181,19 +221,19 @@ body {
 
   &.first {
     // text-align: center;
-    background-image: url(/images/bg8.png);
+    background-image: url(../../images/bg8.png);
     & > .ui.container {
-      padding-top: 40px;
+      // padding-top: 40px;
       padding-bottom: 20px;
     }
   }
 
   &.second {
-    background-image: url(/images/bg2.jpg);
+    background-image: url(../../images/bg2.jpg);
   }
 
   &.third {
-    background-image: url(/images/bg5.jpg);
+    background-image: url(../../images/bg5.jpg);
   }
 }
 
@@ -260,27 +300,26 @@ body {
 @media only screen and (max-width: 768px) {
   .page-segment {
     &:not(.first) {
-      & .ui.segment {
+      & .ui.segment:not(.basic):not(.tab) {
         margin: auto;
         width: 90%;
       }
     }
+    &.first {
+      & .ui.container {
+        // padding-top: 40px;
+        padding-bottom: 20px;
+      }
+    }
   }
 
-  .first > .ui.container {
-    padding-top: 40px;
-    padding-bottom: 20px;
-  }
-  .second .ui.segment, .third .ui.segment { width: 90%; }
   .condition-images img {
     width: 350px;
   }
   .ui.vertical.menu.navbar{
     margin-top: 0px !important;
   }
-  #push {
-    display: none;
-  }
+
   #mobile-only-segments {
     display: block;
   }

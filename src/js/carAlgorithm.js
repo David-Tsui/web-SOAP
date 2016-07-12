@@ -1,5 +1,4 @@
 'use strict'
-
 $(document).ready(function() {
 	
 	/**************************************************** UI control *************************************************/
@@ -464,7 +463,7 @@ $(document).ready(function() {
 						$('#' + id_arr[i]).parents(".field").removeClass("required");
 						$('#' + id_arr[i]).dropdown("set text", options).addClass("disabled");
 					} else {
-						$(id_arr[i]).dropdown("set text", '<option value="">請選擇美容項目</option>');
+						$('#' + id_arr[i]).dropdown("set text", '<option value="">請選擇美容項目</option>');
 						var rule_obj = {
 							identifier: id_arr[i],
 							rules: [
@@ -494,22 +493,37 @@ $(document).ready(function() {
 				});
 
 				/* form handle*/
-				var doer = "", checkbox_state = [true, false], enable_field = ['#tech-field', '#customer-field'];
+				var checkbox_state = [true, false];
+				var enable_field_doer = ['#tech-field', '#customer-field'],
+					enable_field_executed = "#date-field";
 				$('.ui.radio.checkbox.doer').checkbox({
 					 onChange: function() {
-					 	doer = $(this).siblings('label').text();
-					 	checkbox_state = $('.ui.radio.checkbox.doer').checkbox("is checked");
+					 	checkbox_state = $(".ui.radio.checkbox.doer").checkbox("is checked");
+					 	// console.log("checkbox_state: ", checkbox_state);
 					 	checkbox_state.forEach(function(flag, i) {
 					 		if (i == 1 && flag) {
-					 			$(enable_field[i - 1]).removeClass("required");
-					 			$(enable_field[i - 1]).children('input').removeAttr("required");
-					 			$(enable_field[i]).addClass("required");
-					 			$(enable_field[i]).children('input').attr("required");
+					 			$(enable_field_doer[i - 1]).removeClass("required");
+					 			$(enable_field_doer[i - 1]).children('input').removeAttr("required");
 					 		} else if (i == 0 && flag) {
-					 			$(enable_field[i]).addClass("required");
-					 			$(enable_field[i]).attr("required");
-					 			$(enable_field[i + 1]).removeClass("required");
-					 			$(enable_field[i + 1]).children('input').removeAttr("required");
+					 			$(enable_field_doer[i]).addClass("required");
+					 			$(enable_field_doer[i]).children('input').attr("required", "");
+					 		}
+					 	});
+			    }
+				});
+
+				$('.ui.radio.checkbox.executed').checkbox({
+					 onChange: function() {
+					 	checkbox_state = $(".ui.radio.checkbox.executed").checkbox("is checked");
+					 	console.log("checkbox_state: ", checkbox_state);
+					 	checkbox_state.forEach(function(flag, i) {
+					 		if (i == 1 && flag) {
+					 			$(enable_field_executed).removeClass("required");
+					 			$(enable_field_executed).children('input').removeAttr("required");
+					 		} else if (i == 0 && flag) {
+					 			$(enable_field_executed).addClass("required");
+					 			console.log("input: ", $(enable_field_executed).children('input'));
+					 			$(enable_field_executed).children('input').attr("required", "");
 					 		}
 					 	});
 			    }
@@ -546,8 +560,8 @@ $(document).ready(function() {
 					$('#report-form').form('set value', 'date-field', dateString);
 				}
 
-				function getFieldValue(fieldName) {
-					var text = $('#report-form').form('get value', fieldName);
+				function getFieldValue(field_name) {
+					var text = $('#report-form').form('get value', field_name);
 					if (text != "")
 						return text.trim();
 					return "無";
@@ -607,11 +621,12 @@ $(document).ready(function() {
 					var price_result = calculatePrice(carSize, getFieldValue('exterior-field'), getFieldValue('interior-field'), getFieldValue('glass-field'));
 					$("#priceResult").html(price_result);
 					var formData = {
-						日期: "",
+						登打日期: "",
 						健檢人員: getFieldValue('doer-field'),
-						技師姓名: getFieldValue('inspector-field'),
+						技師姓名: getFieldValue('tech-field'),
 						車主姓名: getFieldValue('customer-field'),
-						確定施工日: getFieldValue('date-field'),
+						是否施工: getFieldValue('executed-field'),
+						施工日期: getFieldValue('date-field'),
 						廠別: getFieldValue('place-field'),
 						車號: getFieldValue('number-field'),
 						車色: getFieldValue('color-field'),
@@ -625,10 +640,11 @@ $(document).ready(function() {
 						內裝特殊情形: additionals[1],
 						玻璃特殊情形: additionals[2],
 						估價: price_result,
-						確定美容項目: ""
+						施工美容項目: getConfirmProduct(getFieldValue('exterior-field'), getFieldValue('interior-field'), getFieldValue('glass-field')),
+						備註: getFieldValue('ps-field')
 					};
 
-					var api = "https://script.google.com/macros/s/AKfycbwAa8WYuon5IE2XVlOeYtmDjQiQfNGYa8hu7WRd1JgBG0aWEpOj/exec";
+					var api = "https://script.google.com/macros/s/AKfycbypisEwEHGYDf7hwXKhLHih_LnOGHqb9Tt6YLnblnZXy48jZXlB/exec";
 					$.post(api, formData, function(response) {
 						console.log(response);
 						$("#loadingMsg").fadeOut(function() {
@@ -783,6 +799,22 @@ function showBrowserPrompt() {
 		"<span>當前瀏覽器為" + browser.Name + "，版本為" + browser.Ver + "</span>" + "<br>" + 
 		"<span>推薦使用Chrome，版本40以上</span>"
 	);
+}
+
+function getConfirmProduct(exterior, interior, glass) {
+	var sol = [exterior, interior, glass], ret_str = "";
+	sol.forEach(function(str, i) {
+		if (!str || str == "無") {
+		} else {
+			if (i < sol.length - 1) {
+				ret_str += str + "、";
+			}	else {
+				ret_str += str;
+			}
+		}
+	});
+	console.log("確定項目: ", ret_str);
+	return ret_str;
 }
 
 function initialSemanticUIComponent() {
