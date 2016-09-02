@@ -1,0 +1,379 @@
+[
+  {
+    "name": "輕度柏油污染",
+    "src": [
+      "assets/images/car/輕度柏油污染.jpg"
+    ]
+  },
+  {
+    "name": "中度柏油污染",
+    "src": [
+      "assets/images/car/中度柏油污染.jpg",
+      "assets/images/car/中度柏油污染2.jpg"
+    ]
+  },
+  {
+    "name": "重度柏油污染",
+    "src": [
+      "assets/images/car/重度柏油污染.jpg",
+      "assets/images/car/重度柏油污染2.jpg"
+    ]
+  },
+  {
+    "name": "輕度鐵粉污染",
+    "src": [
+      "assets/images/car/輕度鐵粉污染.jpg"
+    ]
+  },
+  {
+    "name": "中度鐵粉污染",
+    "src": [
+      "assets/images/car/中度鐵粉污染.jpg"
+    ]
+  },
+  {
+    "name": "重度鐵粉污染",
+    "src": [
+      "assets/images/car/重度鐵粉污染.jpg"
+    ]
+  },
+  {
+    "name": "輕度酸雨污染",
+    "src": [
+      "assets/images/car/輕度酸雨污染.jpg"
+    ]
+  },
+  {
+    "name": "中度酸雨污染",
+    "src": [
+      "assets/images/car/中度酸雨污染.jpg",
+      "assets/images/car/中度酸雨污染2.jpg"
+    ]
+  },
+  {
+    "name": "重度酸雨污染",
+    "src": [
+      "assets/images/car/重度酸雨污染.jpg"
+    ]
+  },
+  {
+    "name": "鳥糞污染零期(未有侵蝕現象)",
+    "src": [
+      "assets/images/car/鳥糞污染零期(未有侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "鳥糞污染一期(輕度侵蝕現象)",
+    "src": [
+      "assets/images/car/鳥糞污染一期(輕度侵蝕現象).jpg",
+      "assets/images/car/鳥糞污染一期(輕度侵蝕現象)2.jpg"
+    ]
+  },
+  {
+    "name": "鳥糞污染二期(中度侵蝕現象)",
+    "src": [
+      "assets/images/car/鳥糞污染二期(中度侵蝕現象).jpg",
+      "assets/images/car/鳥糞污染二期(中度侵蝕現象)2.jpg"
+    ]
+  },
+  {
+    "name": "鳥糞污染三期(重度侵蝕現象)",
+    "src": [
+      "assets/images/car/鳥糞污染三期(重度侵蝕現象).jpg",
+      "assets/images/car/鳥糞污染三期(重度侵蝕現象)2.jpg"
+    ]
+  },
+  {
+    "name": "樹脂侵蝕零期(未有侵蝕現象)",
+    "src": [
+      "assets/images/car/樹脂侵蝕零期(未有侵蝕現象).jpg",
+      "assets/images/car/樹果侵蝕零期(輕微度侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "樹脂侵蝕一期(輕度侵蝕現象)",
+    "src": [
+      "assets/images/car/樹脂侵蝕一期(輕度侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "樹脂侵蝕二期(中度侵蝕現象)",
+    "src": [
+      "assets/images/car/樹脂侵蝕二期(中度侵蝕現象).jpg",
+      "assets/images/car/樹果侵蝕二期(中度侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "樹脂侵蝕三期(重度侵蝕現象)",
+    "src": [
+      "assets/images/car/樹果侵蝕三期(重度侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "飛漆污染",
+    "src": [
+      "assets/images/car/飛漆污染(輕度).jpg",
+      "assets/images/car/飛漆污染(中度).jpg",
+      "assets/images/car/飛漆污染(重度).jpg"
+    ]
+  },
+  {
+    "name": "水泥污染",
+    "src": [
+      "assets/images/car/水泥污染.jpg",
+      "assets/images/car/水泥污染2.jpg"
+    ]
+  },
+  {
+    "name": "油煙污染",
+    "src": [
+      "assets/images/car/油煙污染.jpg"
+    ]
+  },
+  {
+    "name": "蜂屎污染零期(未有侵蝕現象)",
+    "src": [
+      "assets/images/car/蜂屎污染零期(未有侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "蜂屎污染一期(輕度侵蝕現象)",
+    "src": [
+      "assets/images/car/蜂屎污染一期(輕微侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "蜂屎污染二期(中度侵蝕現象)",
+    "src": [
+      "assets/images/car/蜂屎污染二期(中度侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "蜂屎污染三期(重度侵蝕現象)",
+    "src": [
+      "assets/images/car/蜂屎污染三期(重度侵蝕現象).jpg"
+    ]
+  },
+  {
+    "name": "輕微度刮傷",
+    "src": [
+      "assets/images/car/輕微度刮傷.jpg",
+      "assets/images/car/輕微度刮傷2.jpg"
+    ]
+  },
+  {
+    "name": "輕度刮傷",
+    "src": [
+      "assets/images/car/輕度刮傷.jpg",
+      "assets/images/car/輕度刮傷2.jpg"
+    ]
+  },
+  {
+    "name": "中度刮傷",
+    "src": [
+      "assets/images/car/中度刮傷.jpg"
+    ]
+  },
+  {
+    "name": "重度刮傷",
+    "src": [
+      "assets/images/car/重度刮傷.jpg",
+      "assets/images/car/重度刮傷.jpg",
+      "assets/images/car/重度刮傷2.jpg"
+    ]
+  },
+  {
+    "name": "漆面霧化",
+    "src": [
+      "assets/images/car/漆面霧化.jpg"
+    ]
+  },
+  {
+    "name": "漆面橘皮化",
+    "src": [
+      "assets/images/car/漆面橘皮化.jpg"
+    ]
+  },
+  {
+    "name": "太陽紋",
+    "src": [
+      "assets/images/car/太陽紋.jpg",
+      "assets/images/car/太陽紋2.jpg",
+      "assets/images/car/太陽紋3.jpg"
+    ]
+  },
+  {
+    "name": "洗車機痕",
+    "src": [
+      "assets/images/car/洗車機痕.jpg",
+      "assets/images/car/洗車機痕2.jpg"
+    ]
+  },
+  {
+    "name": "輕度水斑",
+    "src": [
+      "assets/images/car/輕度水斑.jpg"
+    ]
+  },
+  {
+    "name": "重度水斑",
+    "src": [
+      "assets/images/car/重度水斑.jpg"
+    ]
+  },
+  {
+    "name": "跳石擊傷",
+    "src": [
+      "assets/images/car/輕度跳石擊傷.jpg",
+      "assets/images/car/重度跳石擊傷.jpg"
+    ]
+  },
+  {
+    "name": "老化龜裂",
+    "src": [
+      "assets/images/car/老化龜裂.jpg"
+    ]
+  },
+  {
+    "name": "氣泡(針孔)",
+    "src": [
+      "assets/images/car/氣泡(針孔).jpg"
+    ]
+  },
+  {
+    "name": "魚眼(蠟點)",
+    "src": [
+      "assets/images/car/魚眼(蠟點).jpg",
+      "assets/images/car/魚眼(蠟點)2.jpg"
+    ]
+  },
+  {
+    "name": "痱子",
+    "src": [
+      "assets/images/car/痱子.jpg"
+    ]
+  },
+  {
+    "name": "垂流",
+    "src": [
+      "assets/images/car/垂流.jpg",
+      "assets/images/car/垂流2.jpg"
+    ]
+  },
+  {
+    "name": "色差",
+    "src": [
+      "assets/images/car/色差.jpg"
+    ]
+  },
+  {
+    "name": "塗裝污染",
+    "src": [
+      "assets/images/car/塗裝污染.jpg"
+    ]
+  },
+  {
+    "name": "黑色皮椅髒污",
+    "src": [
+      "assets/images/car/黑色皮椅髒污.jpg"
+    ]
+  },
+  {
+    "name": "米色皮椅髒污",
+    "src": [
+      "assets/images/car/米色皮椅髒污.jpg"
+    ]
+  },
+  {
+    "name": "方向盤髒污",
+    "src": [
+      "assets/images/car/方向盤髒污.jpg"
+    ]
+  },
+  {
+    "name": "冷氣出風口髒污",
+    "src": [
+      "assets/images/car/冷氣出風口髒污.jpg"
+    ]
+  },
+  {
+    "name": "皮椅飲料污漬髒污",
+    "src": [
+      "assets/images/car/皮椅飲料污漬髒污.jpg"
+    ]
+  },
+  {
+    "name": "安全帶髒污",
+    "src": [
+      "assets/images/car/安全帶髒污.jpg"
+    ]
+  },
+  {
+    "name": "頂蓬髒污",
+    "src": [
+      "assets/images/car/頂棚髒污.jpg",
+      "assets/images/car/頂棚髒污2.jpg"
+    ]
+  },
+  {
+    "name": "陳年污垢髒污",
+    "src": [
+      "assets/images/car/陳年污垢髒污.jpg"
+    ]
+  },
+  {
+    "name": "糖果零食髒污",
+    "src": [
+      "assets/images/car/糖果零食髒污.jpg",
+      "assets/images/car/糖果零食髒污2.jpg"
+    ]
+  },
+  {
+    "name": "皮椅發霉",
+    "src": [
+      "assets/images/car/皮椅發霉.jpg"
+    ]
+  },
+  {
+    "name": "口香糖沾黏",
+    "src": [
+      "assets/images/car/口香糖沾黏.jpg"
+    ]
+  },
+  {
+    "name": "油膜附著",
+    "src": [
+      "assets/images/car/油膜附著.jpg"
+    ]
+  },
+  {
+    "name": "油污附著",
+    "src": [
+      "assets/images/car/油污附著.jpg"
+    ]
+  },
+  {
+    "name": "鐵粉附著",
+    "src": [
+      "assets/images/car/鐵粉附著.jpg"
+    ]
+  },
+  {
+    "name": "塵粒附著",
+    "src": [
+      "assets/images/car/塵粒附著.jpg"
+    ]
+  },
+  {
+    "name": "水斑附著",
+    "src": [
+      "assets/images/car/水斑附著.jpg"
+    ]
+  },
+  {
+    "name": "玻璃刮傷",
+    "src": [
+      "assets/images/car/玻璃刮傷.jpg"
+    ]
+  }
+]
