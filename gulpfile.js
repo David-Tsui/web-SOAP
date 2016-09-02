@@ -1,144 +1,236 @@
-var gulp            = require('gulp'), 
-    gulpSass        = require('gulp-sass'),
-    gulpConcat      = require('gulp-concat'),
-    gulpCleanCss    = require('gulp-clean-css'),
-    gulpSourceMaps  = require('gulp-sourcemaps'),
-    gulpUglify      = require('gulp-uglify'),
-    gulpImageMin    = require('gulp-imagemin');
-    gulpRename      = require("gulp-rename"),
-    gulpRev         = require("gulp-rev");
-    gulpHtmlReplace = require('gulp-html-replace'),
-    gulpMinifyHTML  = require('gulp-minify-html'),
-    gulpPlumber     = require('gulp-plumber'),
-    gulpSize        = require('gulp-size'),
-    gulpNotify      = require('gulp-notify'),
-    gulpLivereload  = require('gulp-livereload'),
-    http            = require('http'),
-    st              = require('st'),
-    del             = require('del');
+var gulp     = require('gulp');
+var $plugins = require('gulp-load-plugins')();
+var http     = require('http');
+var st       = require('st');
+var path     = require('path');
+var bourbon  = require("bourbon").includePaths;
+// var Q    = require('q');
 
 var paths = {
-  scripts: ['./src/js/**/*.js', './lib/**/*.js'],
-  styles: ['./src/scss/**.scss'],
-  images: './images/**/*'
+	PASS	 : './',
+	src : {
+		base	 : 'src',
+		scripts: ['src/javascripts/*.js', 'src/javascripts/vendor/*.js'],
+		styles : {
+			scss: 'src/stylesheets/scss/',
+			css : 'src/stylesheets/css/'
+		}
+	},
+	assets: {
+		images : 'assets/images/**/*',
+		json   : 'assets/resources/*.json',
+	},
+	dist : {
+		base   : 'dist',
+		html   : 'src/tmp',
+		scripts: 'dist/scripts',
+		styles : 'dist/styles',
+		assets : 'dist/assets'
+	}
 }
 
-gulp.task('styles', function(callback) {
-  gulp.src(paths.styles)
-    .pipe(gulpPlumber())
-    .pipe(gulpSass())   
-    .pipe(gulp.dest('./src/css'))
-    .pipe(gulpSize())
-    .pipe(gulpNotify("scss to css completed"))
-  callback();
-});
-
-gulp.task('concat', function(callback) {
-  gulp.src('./src/css/*.css')
-    .pipe(gulpPlumber())
-    .pipe(gulpSourceMaps.init())  
-    .pipe(gulpConcat({path: 'bundle.css', cwd: ''}))
-    .pipe(gulp.dest('./build/css/'))
-    .pipe(gulpRev())
-    .pipe(gulpSourceMaps.write("./"))  
-    .pipe(gulp.dest('./build/css/'))
-    .pipe(gulpRev.manifest())
-    .pipe(gulp.dest('./build/css/'))
-    .pipe(gulpSize())
-    .pipe(gulpNotify("concat css completed"))
-    .pipe(gulpLivereload());
-  callback();
-});
-
-gulp.task('scripts', function(callback) {
-  gulp.src(paths.scripts)
-    .pipe(gulpPlumber()) 
-    .pipe(gulpSourceMaps.init())     
-    .pipe(gulpUglify())
-    .pipe(gulpConcat({path: 'bundle.min.js', cwd: ''}))
-    .pipe(gulp.dest('./build/js'))
-    .pipe(gulpRev())           
-    .pipe(gulpSourceMaps.write("./"))  
-    .pipe(gulp.dest('./build/js/'))
-    .pipe(gulpRev.manifest())
-    .pipe(gulp.dest('./build/js'))
-    .pipe(gulpSize())
-    .pipe(gulpNotify("minify js completed"))
-    .pipe(gulpLivereload());
-  callback();
-});
-
-gulp.task('images', function(callback) {
-  gulp.src(paths.images)
-    // Pass in options to the task
-    .pipe(gulpImageMin({optimizationLevel: 5}))
-    .pipe(gulp.dest('build/img'))
-    .pipe(gulpNotify("minify images completed"))
-    .pipe(gulpLivereload());
-});
-
-gulp.task('html-replace', function(callback) {
-  var opts = {comments: false, spare: false, quotes: true};
-  gulp.src('./src/html/*.html')
-    .pipe(gulpPlumber())
-    .pipe(gulpHtmlReplace())
-    .pipe(gulpMinifyHTML(opts))
-    .pipe(gulp.dest('./'))
-    .pipe(gulpSize())
-    .pipe(gulpNotify("html completed"))
-    .pipe(gulpLivereload());
-  callback();
-});
-
-gulp.task('minify-css', gulp.series('concat', function(callback) {
-  gulp.src('./src/css/.css')
-    .pipe(gulpPlumber())
-    .pipe(gulpCleanCss({
-      keepBreaks: true,
-    }))
-    .pipe(gulpRename(function(path) {
-      path.basename += ".min";
-      path.extname = ".css";
-    }))
-    .pipe(gulp.dest('./build/css'))
-    .pipe(gulpSize())
-    .pipe(gulpNotify("css minify completed"))
-    .pipe(gulpLivereload());
-  callback();
-}));
-
 gulp.task('clean', function(callback) {
-  // You can use multiple globbing patterns as you would with `gulp.src`
-  del(['./build']);
-  callback();
+	gulp.src(path.join(paths.dist.base, "/**/*"), {read: false})
+		.pipe($plugins.clean());
+	callback();
+});
+
+gulp.task('clean-html', function(callback) {
+	gulp.src([path.join(paths.dist.html, '/*.html'), path.join(paths.dist.base, "/index.html")], {read: false})
+		.pipe($plugins.clean());
+	callback();
 });
 
 gulp.task('clean-js', function(callback) {
-  // You can use multiple globbing patterns as you would with `gulp.src`
-  del(['./build/js']);
-  callback();
+	gulp.src(path.join(paths.dist.scripts, '/*'), {read: false})
+		.pipe($plugins.clean());
+	callback();
 });
 
 gulp.task('clean-css', function(callback) {
-  // You can use multiple globbing patterns as you would with `gulp.src`
-  del(['./build/css']);
-  callback();
+	gulp.src(path.join(paths.dist.styles, '/*'), {read: false})
+		.pipe($plugins.clean());
+	callback();
 });
 
-gulp.task('server', function(callback) {
-  http.createServer(
-    st({ path: __dirname, index: 'index.html', cache: false })
-  ).listen(8080, callback);
+gulp.task('clean-css-src', function(callback) {
+	gulp.src([
+		path.join(paths.src.styles.css, '/*.css'),
+		path.join('!' + paths.src.styles.css, '/vendor/*.css')
+	], {read: false})
+		.pipe($plugins.clean());
+	callback();
 });
 
-gulp.task('watch', gulp.parallel('server', function(callback) {
-  gulpLivereload.listen();
-  gulp.watch('./src/scss/*.scss', gulp.series('styles'));
-  gulp.watch('./src/css/*.css', gulp.series('clean-css', 'concat'));
-  gulp.watch('./src/js/*.js', gulp.series('clean-js', 'scripts'));
-  gulp.watch('./src/html/*.html', gulp.series('html-replace'));
+gulp.task('scss', gulp.parallel(
+	function scss_custom(callback) {
+		gulp.src(path.join(paths.src.styles.scss, "/*.scss"))
+			.pipe($plugins.plumber())
+			.pipe($plugins.sass({
+				includePaths: ["scss"].concat(bourbon)
+			}))   
+			.pipe(gulp.dest(paths.src.styles.css))
+			// .pipe($plugins.notify("scss to css completed"))
+		callback();
+	},
+	function scss_vendor(callback) {
+		gulp.src(path.join(paths.src.styles.scss, "/vendor/*.scss"))
+			.pipe($plugins.plumber())
+			.pipe($plugins.sass())   
+			.pipe(gulp.dest(path.join(paths.src.styles.css, "/vendor")))
+		callback();
+	}
+));
+
+gulp.task('minify-css', function(callback) {
+	gulp.src([
+		path.join(paths.src.styles.css, '/*.css'),
+		path.join('!' + paths.src.styles.css, '/*.min.css'),
+		path.join(paths.src.styles.css, '/vendor/*.css'),
+		path.join('!' + paths.src.styles.css, '/vendor/*.min.css')
+		])
+		.pipe($plugins.plumber())
+		.pipe($plugins.cleanCss({
+			keepBreaks: true,
+		}))
+		.pipe($plugins.rename(function(path) {
+			path.basename += ".min";
+			path.extname  = ".css";
+		}))
+		.pipe(gulp.dest(paths.src.styles.css))
+		// .pipe($plugins.notify("css minify completed"))
+	callback();
+});
+
+gulp.task('styles', gulp.series('clean-css', 'scss', 'minify-css', function concat_minify_css(callback) {
+	gulp.src([
+		path.join(paths.src.styles.css, '/*.css'),
+		path.join(paths.src.styles.css, '/vendor/*.min.css')
+		])
+		.pipe($plugins.plumber())
+		.pipe($plugins.sourcemaps.init())
+		.pipe($plugins.concat({path: 'bundle.min.css', cwd: ''}))
+		.pipe(gulp.dest(paths.dist.styles))
+		.pipe($plugins.rev())
+		.pipe($plugins.sourcemaps.write("./"))  
+		.pipe(gulp.dest(paths.dist.styles))
+		.pipe($plugins.rev.manifest({
+			path : path.join(paths.dist.base, '/manifest.json'),
+			merge: true
+		}))
+		// .pipe($plugins.debug({title: 'Styles:', minimal: false}))
+		.pipe(gulp.dest("./"))
+		.pipe($plugins.notify("CSS is ready..."))
+		// .pipe($plugins.livereload());
+	callback();
 }));
 
-gulp.task('build', gulp.series('clean', gulp.parallel('scripts', gulp.series('styles', 'concat')), 'html-replace'));
+gulp.task('scripts', gulp.series('clean-js', function(callback) {
+	console.log(process.cwd());
+	gulp.src(paths.src.scripts)
+		.pipe($plugins.plumber())
+		.pipe($plugins.sourcemaps.init())     
+		.pipe($plugins.uglify())
+		.pipe($plugins.concat({path: 'bundle.min.js', cwd: ''}))
+		.pipe(gulp.dest(paths.dist.scripts))
+		.pipe($plugins.rev())           
+		.pipe($plugins.sourcemaps.write("./"))  
+		.pipe(gulp.dest(paths.dist.scripts))
+		.pipe($plugins.rev.manifest({
+			path : path.join(paths.dist.base, '/manifest.json'),
+			merge: true
+		}))
+		// .pipe($plugins.debug({title: 'Styles:', minimal: false}))
+		.pipe(gulp.dest("./"))
+		.pipe($plugins.notify("JS is ready..."))
+		// .pipe($plugins.livereload());
+	callback();
+}));
 
-gulp.task('default', gulp.series('build', 'watch'));
+gulp.task('images', function(callback) {
+	gulp.src(paths.assets.images)
+		.pipe($plugins.imagemin({optimizationLevel: 5}))
+		.pipe(gulp.dest(path.join(paths.dist.assets, "/images")))
+		// .pipe($plugins.livereload());
+	callback();
+});
+
+gulp.task('json', function(callback) {
+	gulp.src(paths.assets.json)
+		.pipe(gulp.dest(path.join(paths.dist.assets, "/resources")));
+	callback();
+})
+
+gulp.task('assets', gulp.series(gulp.parallel('images', 'json'), function(callback) {
+	gulp.src(paths.PASS, {read: false})
+		.pipe($plugins.notify("Assets is ready..."));
+	callback();
+}));
+
+gulp.task('html_inject', function(callback) {
+	var injectStyles = gulp.src(path.join(paths.dist.styles, '/bundle.min.css'), { read: false });
+	var injectScripts = gulp.src(path.join(paths.dist.scripts, '/bundle.min.js'), { read: false });
+	var injectOptions = {
+	  ignorePath: paths.dist.base,
+	  addRootSlash: false
+	};
+	gulp.src(path.join(paths.src.base, '/index.html'))
+		.pipe($plugins.inject(injectStyles, injectOptions))
+		.pipe($plugins.inject(injectScripts, injectOptions))
+		.pipe(gulp.dest(paths.dist.html));
+	callback();
+});
+
+gulp.task('html_replace', function(callback) {
+	setTimeout(function() {
+		var opts = {comments: false, spare: false, quotes: true};
+		var manifest = gulp.src(path.join(paths.dist.base, "/manifest.json"));
+		gulp.src(path.join(paths.dist.html, '/index.html'))
+			.pipe($plugins.plumber())
+			.pipe($plugins.revReplace({manifest: manifest}))
+			// .pipe($plugins.debug({title: 'Styles:', minimal: false}))
+			.pipe($plugins.htmlReplace())
+			.pipe($plugins.minifyHtml(opts))
+			.pipe(gulp.dest(paths.dist.base))
+			.pipe($plugins.livereload())
+			.pipe($plugins.notify("Index is ready..."));
+		callback();
+	}, 500);
+});
+
+// gulp.task('html_reload', function(callback) {
+// 	gulp.src(path.join(paths.dist.html, '/index.html'))
+// 		.pipe($plugins.plumber())
+// 		.pipe($plugins.notify("Index has reloaded"))
+// 		.pipe($plugins.livereload());
+// 	callback();
+// });
+
+gulp.task('html', gulp.series('html_inject', 'html_replace'));
+
+gulp.task('server', function(callback) {
+	var port = 8080;
+	http.createServer(
+		st({ path: paths.dist.base, index: 'index.html', cache: false })
+	).listen(port, callback);
+	gulp.src(paths.PASS, {read: false})
+		.pipe($plugins.notify("Serving port " + port));
+});
+
+gulp.task('watch', function(callback) {
+	$plugins.livereload.listen();
+	gulp.watch(paths.src.styles.scss,  gulp.series('clean-css', 'styles', 'html'));
+	gulp.watch(paths.src.scripts, gulp.series('clean-js', 'scripts', 'html'));
+	gulp.watch(path.join(paths.src.base, "/index.html"), gulp.series('html'));
+	// gulp.watch(path.join(paths.dist.base, "/index.html"), gulp.series('html_reload'));
+	callback();
+});
+
+gulp.task('build', gulp.series(gulp.parallel('clean-css', 'clean-js'), 'styles', 'scripts', 'html'),
+	function done(callback) {
+		gulp.src(paths.PASS, {read: false})
+			.pipe($plugins.notify("Build completed!!!"));
+		callback();
+	}
+);
+gulp.task('default', gulp.series('watch'));
