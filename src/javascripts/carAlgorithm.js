@@ -161,7 +161,7 @@ $(document).ready(function() {
  
 		$(".ui.multiple.dropdown .item").click(function(e) {
 			var caller_item = $(e.target).attr("data-value");
-			addCard(caller_item, carImageObj);
+			addCard(caller_item, carImageObj, sticky_cards);
 			// a hack to wait the dropdown item shows up
 			setTimeout(function(){
 				$('.ui.label.transition.visible').off('click').on('click', function(e) {
@@ -198,8 +198,10 @@ $(document).ready(function() {
 		$('.ui.fluid.multiple.dropdown').dropdown('clear');
 		$('.second, .third').hide();
 		scrollToDropdown();
-		$(".sticky-default-text").removeClass(".not-empty");
+		$("#card-container-monitor, #card-container-mobile").empty();
+		$(".sticky-default-text").removeClass("not-empty");
 		$('.ui.sticky').sticky('refresh');
+		sticky_cards = [];
 	});
 	$("#goAhead").on('click', function(){
 		var exterior = [[],[]], interior = [], coating = "", attach = "", broken = "";
@@ -752,7 +754,7 @@ var getAllContain = function(array, condition_num) { // 得到所有問題之共
 	return ret;
 }
 
-function addCard(condition, carImageObj) {
+function addCard(condition, carImageObj, sticky_cards) {
 	var card = $("#card-template").clone().removeAttr("id").css('display', 'block');
 	var img_path = searchImages(condition, carImageObj);
 	card.find(".image img").attr("src", img_path[0]);
@@ -785,9 +787,10 @@ function addCard(condition, carImageObj) {
 	$('.ui.sticky').sticky('refresh');
 	card.addClass('magictime puffIn');
 	if (sticky_cards.length == 0) {
-		$(".sticky-default-text").addClass(".not-empty");
+		$(".sticky-default-text").addClass("not-empty");
 	}
 	sticky_cards.push(card);
+	console.log("add card");
 	$("#card-container-monitor, #card-container-mobile").append(card);
 }
 

@@ -1,8 +1,14 @@
+@import 'bourbon';
+
 $img_path: '../assets/images/';
 
 @mixin font() {
 	font-family: "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", sans-serif;
 }
+
+// .debug {
+// 	color: #444;
+// }
 
 body { 
 	background: #FAFAFA;
@@ -205,7 +211,7 @@ p.sticky-default-text {
 	display: flex;
 	.item {
 		flex: 1;
-		padding: 8px;
+		padding: 16px;
 	}
 }
 
@@ -235,11 +241,11 @@ p.sticky-default-text {
 }
 
 .mobile.only.row {
-	margin-top: 0px !important;
-	padding-top: 0px !important;
+	margin-top: 0 !important;
+	padding-top: 0 !important;
 	& .ui.menu.navbar {
 		margin-top: 1rem;
-		border-radius: 0px !important;
+		border-radius: 0 !important;
 	}
 	& #mobile_navbar {
 		display: none;
@@ -291,7 +297,7 @@ p.sticky-default-text {
 }
 
 .myHeader {
-	font-size: 2.25em;
+	font-size: 3em;
 	font-weight: 400;
 	color: #333;
 }
@@ -318,7 +324,7 @@ p.sticky-default-text {
 }
 
 .padding-reset {
-	padding: 0px !important;
+	padding: 0 !important;
 }
 
 .sideIcon {
@@ -359,7 +365,7 @@ p.sticky-default-text {
 		width: 350px;
 	}
 	.ui.vertical.menu.navbar{
-		margin-top: 0px !important;
+		margin-top: 0 !important;
 	}
 
 	#mobile-only-segments {
@@ -377,7 +383,7 @@ p.sticky-default-text {
 		margin-left: 12px !important;
 	}
 	.myHeader {
-		font-size: 1.25em;
+		font-size: 1.8em;
 	}
 	.condition-images {
 		& img {
