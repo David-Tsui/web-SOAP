@@ -195,7 +195,7 @@ gulp.task('html_replace', function(callback) {
 		gulp.src(path.join(paths.dist.html, '/index.html'))
 			.pipe($plugins.plumber())
 			.pipe($plugins.revReplace({manifest: manifest}))
-			.pipe($plugins.debug({title: 'Replace:', minimal: false}))
+			// .pipe($plugins.debug({title: 'Replace:', minimal: false}))
 			.pipe($plugins.htmlReplace())
 			.pipe($plugins.minifyHtml(opts))
 			.pipe(gulp.dest(paths.dist.base))
